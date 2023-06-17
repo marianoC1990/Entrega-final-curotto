@@ -1,30 +1,73 @@
-let username = ('mariano')
-let mensaje = "Calcula el Precio de tu auto segun tu estatura"
-function identificarme(){
-    username = prompt('Ingresa tu nombre de usuario')
-    if(username.trim() !=='') {
-      alert('Bienvenido ' + username)
-      }
-      else{
-        alert('error')
-      }
-      
-   }
-   function calcularElPrecioDelAuto() {
-    for (var i = 0; i < 3; i++) {
-      var numero1 = prompt("Ingresa el monto del auto:");
-      var numero2 = prompt("Ingresa tu altura en CM:");
-  
-      numero1 = parseFloat(numero1);
-      numero2 = parseFloat(numero2);
-  
-      if (isNaN(numero1) || isNaN(numero2)) {
-        alert("Ingresa números válidos.");
-        return "No entendimos.";
-      }
-  
-      var resultado = numero1 * numero2;
-      alert("El Precio de tu auto es $: " + resultado);
+let productos = [
+  {
+    id: 1,
+    nombre: "aston martin",
+    categoria: "ingles",
+    precio: 1500
+  },
+  {
+    id: 2,
+    nombre: "ferrari",
+    categoria: "italiano",
+    precio: 2300
+  },
+  {
+    id: 3,
+    nombre: "jaguar",
+    categoria: "ingles",
+    precio: 10000
+  },
+  {
+    id: 4,
+    nombre: "Mercedes benz",
+    categoria: "Aleman",
+    precio: 200
+  }
+];
+
+
+
+
+
+let carrito = [];
+
+function agregarAlCarrito() {
+  let nombreProducto = prompt("Ingrese el nombre del producto que desea agregar al carrito (o escriba 'salir' para salir):");
+
+  if (nombreProducto.toLowerCase() === "salir") {
+    return true; ma
+  }
+
+  carrito.push(nombreProducto);
+  console.log("Producto agregado al carrito.");
+}
+
+
+function iniciarCompra() {
+  let salir = false;
+  while (!salir) {
+    let opcion = prompt("Seleccione una opción: \n1. Agregar producto al carrito \n2. Ver contenido del carrito \n3. Salir");
+
+    switch (opcion) {
+      case "1":
+        salir = agregarAlCarrito();
+        break;
+      case "2":
+        console.log("Contenido del carrito:");
+        if (carrito.length === 0) {
+          console.log("El carrito está vacío.");
+        } else {
+          carrito.forEach(nombreProducto => {
+            console.log("- " + nombreProducto);
+          });
+        }
+        break;
+      case "3":
+        console.log("Gracias por utilizar el carrito de compra.");
+        salir = true;
+        break;
+      default:
+        console.log("Opción inválida. Intente nuevamente.");
     }
   }
- 
+}
