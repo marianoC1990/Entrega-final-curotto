@@ -25,49 +25,27 @@ let productos = [
   }
 ];
 
-
-
-
-
 let carrito = [];
 
-function agregarAlCarrito() {
-  let nombreProducto = prompt("Ingrese el nombre del producto que desea agregar al carrito (o escriba 'salir' para salir):");
-
+function agregarAlCarrito(nombreProducto) {
   if (nombreProducto.toLowerCase() === "salir") {
-    return true; ma
+    return true;
   }
 
-  carrito.push(nombreProducto);
-  console.log("Producto agregado al carrito.");
+  let productoBuscado = productos.find(p => p.nombre === nombreProducto);
+
+  if (productoBuscado) {
+    carrito.push(productoBuscado);
+    console.log("Producto agregado al carrito.");
+  } else {
+    alert("No se encontró el producto.");
+  }
 }
 
-
-function iniciarCompra() {
-  let salir = false;
-  while (!salir) {
-    let opcion = prompt("Seleccione una opción: \n1. Agregar producto al carrito \n2. Ver contenido del carrito \n3. Salir");
-
-    switch (opcion) {
-      case "1":
-        salir = agregarAlCarrito();
-        break;
-      case "2":
-        console.log("Contenido del carrito:");
-        if (carrito.length === 0) {
-          console.log("El carrito está vacío.");
-        } else {
-          carrito.forEach(nombreProducto => {
-            console.log("- " + nombreProducto);
-          });
-        }
-        break;
-      case "3":
-        console.log("Gracias por utilizar el carrito de compra.");
-        salir = true;
-        break;
-      default:
-        console.log("Opción inválida. Intente nuevamente.");
-    }
-  }
+let pregunta = prompt("¿Desea agregar algún producto al carrito?");
+if (pregunta.toLowerCase() === "si") {
+  let producto = prompt("¿Qué producto desea agregar?");
+  agregarAlCarrito(producto);
+} else {
+  alert("¡Gracias! Vuelva pronto.");
 }
