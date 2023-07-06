@@ -3,49 +3,74 @@ let productos = [
     id: 1,
     nombre: "aston martin",
     categoria: "ingles",
-    precio: 1500
+    precio: 1500,
+    img: "./img/astonMartin.jfif"
   },
   {
     id: 2,
     nombre: "ferrari",
     categoria: "italiano",
-    precio: 2300
+    precio: 2300,
+    img: "./img/ferrari.jfif"
   },
   {
     id: 3,
     nombre: "jaguar",
     categoria: "ingles",
-    precio: 10000
+    precio: 10000,
+    img: "./img/jaguar.jpg"
   },
   {
     id: 4,
     nombre: "Mercedes benz",
     categoria: "Aleman",
-    precio: 200
+    precio: 200,
+    img: "./img/mercedesBenz.webp",
+  },
+  {
+    id: 5,
+    nombre: "Maserati",
+    categoria: "italia",
+    precio: 2000,
+    img: "./img/maserati.jpg",
+  },
+  {
+    id: 6,
+    nombre: "Ford",
+    categoria: "Estadounidence",
+    precio: 1200,
+    img: "./img/ford.jpg",
+  },
+  {
+    id: 7,
+    nombre: "jeep",
+    categoria: "Estadounidence",
+    precio: 2300,
+    img: "./img/jeep.jpg",
+  },
+  {
+    id: 8,
+    nombre: "Audi",
+    categoria: "Aleman",
+    precio: 22200,
+    img: "./img/audi.webp",
   }
-];
 
-let carrito = [];
+]
 
-function agregarAlCarrito(nombreProducto) {
-  if (nombreProducto.toLowerCase() === "salir") {
-    return true;
-  }
+productos.map(producto => {
+  let card = document.createElement('div');
+  card.classList.add('card', 'col-md-4', 'mb-4'); 
 
-  let productoBuscado = productos.find(p => p.nombre === nombreProducto);
+  card.innerHTML = `
+    <div class="card-body">
+      <h3 class="card-title">${producto.nombre}</h3>
+      <img src="${producto.img}" class="card-img-top">
+      <h4 class="card-subtitle">País de origen: ${producto.categoria}</h4>
+      <p class="card-text">Precio en pesos: ${producto.precio}</p>
+    </div>
+  `;
 
-  if (productoBuscado) {
-    carrito.push(productoBuscado);
-    console.log("Producto agregado al carrito.");
-  } else {
-    alert("No se encontró el producto.");
-  }
-}
+  container.append(card);
+});
 
-let pregunta = prompt("¿Desea agregar algún producto al carrito?");
-if (pregunta.toLowerCase() === "si") {
-  let producto = prompt("¿Qué producto desea agregar?");
-  agregarAlCarrito(producto);
-} else {
-  alert("¡Gracias! Vuelva pronto.");
-}
