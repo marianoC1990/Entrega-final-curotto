@@ -57,20 +57,65 @@ let productos = [
   }
 
 ]
-
+let botonCarrito = document.getElementById('boton-carrito')
+let modalContainer = document.getElementById ('modal-container')
+var carrito = []
 productos.map(producto => {
   let card = document.createElement('div');
   card.classList.add('card', 'col-md-4', 'mb-4'); 
 
   card.innerHTML = `
-    <div class="card-body">
-      <h3 class="card-title">${producto.nombre}</h3>
+    <div class="card-body, border, bc">
+      <h3 class="card-title, p20">${producto.nombre}</h3>
       <img src="${producto.img}" class="card-img-top">
-      <h4 class="card-subtitle">País de origen: ${producto.categoria}</h4>
-      <p class="card-text">Precio en pesos: ${producto.precio}</p>
+      <h4 class="card-subtitle, p20, center">País de origen: ${producto.categoria}</h4>
+      <p class="card-text, p20, center">Precio en pesos: ${producto.precio}</p>
     </div>
   `;
 
   container.append(card);
+  let boton = document.createElement ('button')
+  boton.innerText = 'Agregar al carrito'
+  card.append(boton)
+  boton.addEventListener ('click', () =>{
+    carrito.push ({
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+    })
+    console.log (carrito)
+  })
 });
 
+function mostrarCarrito (){
+  modalContainer.style.display = 'flex'
+  let modalheader = document.createElement ('div')
+  modalheader.innerHTML = `<h1>Carrito</h1>`
+  modalContainer.append(modalheader)
+  let modalbutton = document.createElement ('p')
+  modalbutton.innerText = 'X'
+  modalheader.append(modalbutton)
+  modalbutton.addEventListener('click', ()=>{
+    modalContainer.style.display = 'none'
+  })
+ 
+  let containerItems = document.createElement ('div')
+  modalContainer.append(containerItems) 
+    carrito.map((producto)=>{
+    let carrritoItem = document.createElement ('div')
+    carrritoItem.innerHTML = `<p>${producto.nombre}</p><p>${producto.precio}</p>`
+    containerItems.append(carrritoItem)
+  })
+ let total = carrito.reduce((acumulador, producto)=>acumulador + producto.precio, 0)
+ console.log (total)
+ let modalFooter = document.createElement ('div')
+ if (carrito.length === 0){
+  modalFooter.innerHTML = `<p>Compra algo raton</p>`
+
+ }else {
+  modalFooter.innerHTML = `<p>Total</p><p>${total}</p>`
+ }
+ modalContainer.append(modalFooter)
+
+ }
+botonCarrito.addEventListener ('click', mostrarCarrito)
