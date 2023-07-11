@@ -59,7 +59,7 @@ let productos = [
 ]
 let botonCarrito = document.getElementById('boton-carrito')
 let modalContainer = document.getElementById ('modal-container')
-var carrito = []
+let carrito = []
 productos.map(producto => {
   let card = document.createElement('div');
   card.classList.add('card', 'col-md-4', 'mb-4'); 
