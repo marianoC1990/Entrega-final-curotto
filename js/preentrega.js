@@ -59,7 +59,8 @@ let productos = [
 ]
 let botonCarrito = document.getElementById('boton-carrito')
 let modalContainer = document.getElementById ('modal-container')
-let carrito = []
+let carrito = JSON.parse(localStorage.getItem('carrito')) || []
+const saveLocal = () => {localStorage.setItem('carrito', JSON.stringify(carrito))};
 productos.map(producto => {
   let card = document.createElement('div');
   card.classList.add('card', 'col-md-4', 'mb-4'); 
@@ -83,12 +84,13 @@ productos.map(producto => {
       nombre: producto.nombre,
       precio: producto.precio,
     })
-    console.log (carrito)
+    saveLocal();
   })
 });
 
 function mostrarCarrito (){
   modalContainer.style.display = 'flex'
+  modalContainer.innerHTML = ""
   let modalheader = document.createElement ('div')
   modalheader.innerHTML = `<h1>Carrito</h1>`
   modalContainer.append(modalheader)
@@ -107,7 +109,7 @@ function mostrarCarrito (){
     containerItems.append(carrritoItem)
   })
  let total = carrito.reduce((acumulador, producto)=>acumulador + producto.precio, 0)
- console.log (total)
+
  let modalFooter = document.createElement ('div')
  if (carrito.length === 0){
   modalFooter.innerHTML = `<p>Compra algo raton</p>`
@@ -119,3 +121,48 @@ function mostrarCarrito (){
 
  }
 botonCarrito.addEventListener ('click', mostrarCarrito)
+/* traigo el elemento del html*/
+// let finder = document.getElementById('finder')
+// /* Crear funcion para buscar productos*/
+// function buscarProducto(){
+//   let inputValue = finder.value;
+
+//   let patron = new RegExp(`^.*${inputValue}.*$`,'i');
+
+//   let arrayResultado = productos.filter(producto => producto.nombre.match(patron));
+
+
+//   if(arrayResultado.length === 0){
+//     container.innerHTML = `<h3> No se encontraron resultados </h3>`
+//   }else{
+//     container.innerHTML =''
+//     arrayResultado.map(producto =>{
+//       let cardBuscar = document.createElement('div')
+//       cardBuscar.innerHTML = 
+//       `<h3>${producto.nombre}</h3>
+//       <img src=${producto.img}>
+//       <p>${producto.precio}</p>
+//       `
+//       container.append(cardBuscar)
+//       function agregarAlCarrito(){
+//         carrito.push({
+//           id:producto.id,
+//           nombre:producto.nombre,
+//           precio:producto.precio,
+//         })
+//         if(modalContainer.style.display === "flex") {
+//           mostrarCarrito()
+//         }
+//       }
+//       let boton = document.createElement('button')
+//       boton.innerText = 'Comprar'
+//       boton.className = 'boton-comprar'
+//       cardBuscar.append(boton),
+//       boton.addEventListener('click', agregarAlCarrito);
+
+//     })
+//   }
+
+// }
+// finder.addEventListener('input', buscarProducto)
+
