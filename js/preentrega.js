@@ -116,6 +116,10 @@ function mostrarCarrito (){
 
  }else {
   modalFooter.innerHTML = `<p>Total</p><p>${total}</p>`
+  let botonModalFooter = document.createElement ('button')
+  botonModalFooter.innerText ='Finalizar Compra'
+  botonModalFooter.addEventListener('click', finalizarCompra)
+  modalFooter.append(botonModalFooter)
  }
  modalContainer.append(modalFooter)
 
@@ -166,3 +170,50 @@ botonCarrito.addEventListener ('click', mostrarCarrito)
 // }
 // finder.addEventListener('input', buscarProducto)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let botonCualquiera = document.getElementById('boton-cualquiera')
+// botonCualquiera.addEventListener('click', ()=>Swal.fire({
+//   title: 'Meta!',
+//   text: 'Lo logre perri!!',
+//   icon: 'success',
+//   confirmButtonText: 'Cool'
+// }))
+
+//* Agregar un boton en el modal carrito para finalizar compra
+//*Que ese boton==> 1- Muestre un Cartelito diciendo que terminaste la compra
+//*                 2- que Reinicie el carrito a cero  
+
+function finalizarCompra (){
+  mostrarCartel()
+  limpiarCarrito()
+  modalContainer.style.display = 'none'
+
+}
+function mostrarCartel(){
+    Swal.fire({
+    title: 'Meta!',
+    text: 'Lo logre perri!!',
+    icon: 'success',
+    confirmButtonText: 'Cool'
+  })
+}
+function limpiarCarrito(){
+  carrito = []
+  saveLocal()
+
+}
